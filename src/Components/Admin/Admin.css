@@ -1,0 +1,144 @@
+.tableview{
+    justify-content: center;
+    
+}
+.adminpage,.adminsearchpage,.userspage,.userfeedbackpage,.cropspage {
+    display: flex;
+    width: 100%;     
+}
+
+.sidebar {
+    background-color: rgb(122, 121, 121);
+    width: 17%;
+    height: 93vh;
+    font-size: 30px;
+    text-align: left;
+}
+
+.adminimg {
+    width: 130px;
+    border-radius: 50%;
+    border: 5px solid black;
+    margin: 20px 0 20px 80px;
+}
+
+.sidebar h3 {
+    padding: 1rem;
+    padding-left: 20px;
+    font-size: 34px;
+
+}
+
+.navitem {
+    text-decoration: none;
+    color: black;
+
+}
+
+.sidebar h3:hover {
+    background-color: rgb(172, 170, 170);
+}
+
+.main {
+    width: 83%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.box {
+    margin: 2rem;
+    width: 20%;
+    height: 200px;
+    /* padding: 1rem; */
+    margin: 1rem 0;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgb(240, 240, 240);
+}
+
+.name {
+    padding: 40px;
+    width: 100%;
+    /* border: 1px solid rgb(167, 163, 163); */
+    font-size: 40px;
+    background-color: #b0adad;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.text {
+    width: 100%;
+    padding: 1rem;
+    /* border: 1px solid rgb(70, 68, 68); */
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor: pointer;
+
+}
+
+/* ************************* /admin/users ************************/
+.users,.crops,.feedback {
+
+    width: 83%;
+    padding: 1rem 2rem;
+    /* width: auto; */
+    margin: 10px auto;
+    height: 93vh;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+table {
+    border-radius: 100px;
+}
+th,td {
+    /* width: 200px; */
+    text-align: left;
+}
+
+
+table,tr,td,th {
+    /* border: 1px solid rgb(232, 204, 162); */
+    border: 2px solid #dfd7ca;
+    /* border: 2px solid green; */
+    padding: 0.6rem 1.5rem;
+    
+}
+tr td{
+    border: 2px solid #dfd7ca; 
+  vertical-align: middle; 
+
+}
+
+/* tr:nth-child(even) {
+    background-color: rgb(239, 234, 219);
+} */
+#zctb tbody tr:nth-child(even) {
+    background-color: #ffffff; /* White color for even rows */
+  }
+  #zctb tbody tr:nth-child(odd) {
+    /* background-color: #f2f2f2; Light gray color for odd rows */
+    background-color: red;
+  }
+
+
+/* ***************************** /admin/crops *********************************/
+
+
+
+/******************************* adminsearchbar *******************************/
+.adminsearchpage{
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.searchtext{
+    font-weight: 500;
+    font-size: larger;
+    padding-right: 10px;
+}
+.searchinput{
+    border-radius: 5px;
+    outline: none;
+}

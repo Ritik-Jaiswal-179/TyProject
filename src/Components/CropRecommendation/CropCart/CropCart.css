@@ -1,0 +1,13 @@
+@media screen and (max-width: 997px) {
+    .card{
+        margin:10px auto;
+    }
+}
+.card{
+    margin-top: 20px;
+    padding: 10px;
+    /* border: none; */
+}
+.cropcart{
+    margin: 0 auto;
+}

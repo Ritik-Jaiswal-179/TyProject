@@ -1,0 +1,14 @@
+<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Sno.</th>
+											<th>Reg no</th>
+											<th>Student Name</th>
+											<th>Specialization</th>
+											<th>Registration Date</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+                                    </tfoot>
+</table>                                    

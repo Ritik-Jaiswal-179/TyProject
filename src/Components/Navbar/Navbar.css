@@ -1,0 +1,22 @@
+.navbar-toggler{
+
+
+}
+
+.profile-name{
+
+}
+
+.mymenu{
+    /* display: none; */
+}
+
+@media screen and (max-width: 997px) {
+    .mymenu{
+        display: block;
+    }
+    .profile-name{
+        display: none;
+
+    }
+  }

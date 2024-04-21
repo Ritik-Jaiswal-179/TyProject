@@ -1,0 +1,88 @@
+/* .dd{
+    width: 100vw;
+    height: 92.9vh;
+    background-color: rgb(222, 217, 217);
+} */
+.top{
+    /* border: 1px solid red; */
+    padding: 30px;
+}
+.ddlabel {
+    background-color: rgb(2, 46, 15);
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.boxes{
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 1px solid green; */
+    justify-content: space-evenly;
+    /* height: 80%; */
+}
+.dbox{
+    
+  flex-basis: 29.3%;
+    background-color: #fff;
+    /* text-align: justify; */
+    text-align: left;
+    margin: 10px 25px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    height: 550px;
+    width: 30%;
+}
+
+
+
+
+
+
+
+
+.image{
+    /* border: 1px solid red; */
+    margin: 10px;
+    padding: 20px;
+}
+.desc{
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    text-align: left;
+}
+
+.prevent{
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 1px solid black; */
+    justify-content: space-between;
+}
+.prev{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 48%;
+}
+.pre{
+    text-align: left;
+}
+
+@media screen and (max-width: 997px) {
+    .boxes, .prevent{
+        flex-direction: column;
+    }
+    .dbox{
+        width: 90%;
+        flex-flow: column nowrap;
+    }
+    .prev{
+        width: 100%;
+    }
+}

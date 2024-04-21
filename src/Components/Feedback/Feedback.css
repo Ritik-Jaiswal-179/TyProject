@@ -1,0 +1,29 @@
+.feedback{
+    /* background-color: rgb(201, 194, 194); */
+    height: 100%;
+}
+
+.label{
+    font-size: 20px;
+}
+
+.textarea{
+    border-radius: 5px ;
+    background-color: rgb(222, 222, 222);
+    padding: 10px;
+    width: 70%;
+    height: 180px;
+    margin: 15px auto;
+}
+
+.submit{
+    border: 2px solid black;
+    border-radius: 10px;
+    color: white;
+    background-color: red;
+    font-size: 20px;
+    padding: 5px 10px;
+}
+/* input{
+    background-color: rgb(173, 170, 170);
+} */
