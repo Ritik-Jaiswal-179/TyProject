@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react'
 import "./DiseaseDetection.css"
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 function DiseaseDetectionsubmit() {
     
-  const navigate = useNavigate()
+  const navigate = useNavigate(); // Use useNavigate
+
+  const { image, result } = useLocation().state || {}; // Get data from location.state
+  if (!image || !result) {
+    console.log("No data to display. Go back and upload an image.")// Inform user and potentially offer navigation back
+  }
     useEffect(() => {
         if (localStorage.getItem("token")) {
             // getnotes()
@@ -18,11 +23,12 @@ function DiseaseDetectionsubmit() {
         <div className='container'>
             <div className="image">
                 <h3>Image</h3>
+      <img src={image} alt="Uploaded Image" />
             </div>
             
             <div className="desc">
                 <h3>Description</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, eligendi accusantium, voluptates similique dolores reprehenderit dignissimos odit tempora sunt voluptatum ratione explicabo nostrum mollitia, consequuntur omnis quae deserunt. Qui, eveniet.</p>
+                {result?`Result: ${JSON.stringify(result)}` : <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, eligendi accusantium, voluptates similique dolores reprehenderit dignissimos odit tempora sunt voluptatum ratione explicabo nostrum mollitia, consequuntur omnis quae deserunt. Qui, eveniet.</p>}
             </div>
 
             <div className="prevent">

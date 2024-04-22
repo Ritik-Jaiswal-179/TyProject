@@ -3,7 +3,24 @@ import json
 import jwt
 from datetime import datetime, timedelta
 from config.config import dbconfig as db
-from flask import make_response
+from flask import make_response, Flask, request, jsonify
+
+import torch
+from torchvision import transforms
+from torchvision import models
+from PIL import Image
+import io
+
+
+model_path = 'efficientnet_b0_plant_disease_classification.pth'  # Update with your model path
+
+model = models.resnet18(pretrained=True)
+model.load_state_dict(torch.load(model_path, map_location='cpu'))
+print(model)
+model.eval()  # Set the model to evaluation mode
+
+
+
 
 class user_model:
     # def __init__(self):
@@ -145,5 +162,34 @@ class user_model:
             return make_response({"success":True,"res":"Profile updated"},200)
         else:
             return make_response({"message":"Nothing to update"},204)      
+    
 
-# josndfs
+
+    
+    def detect_disease(self, data):
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+        file = data['file']
+    
+    # Process the file (assuming image input)
+        image = Image.open(io.BytesIO(file.read()))
+    
+    # Apply necessary transformations (customize as needed)
+        transform = transforms.Compose([
+            transforms.Resize((256, 256)),  # Example resize
+            transforms.ToTensor()
+        ])
+
+        image_tensor = transform(image).unsqueeze(0)  # Add batch dimension
+
+        # Perform inference
+        with torch.no_grad():
+            outputs = model(image_tensor)
+
+        # Convert the output to a JSON-friendly format (e.g., probabilities or class names)
+        results = outputs.tolist()  # Adjust based on your model's output format
+
+        return make_response({"success":True,'results': results},200)
+        return "disease"
+    # josndfs
+

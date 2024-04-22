@@ -37,3 +37,8 @@ def user_feedback_controller():
 @app.route("/user/profileupdate",methods=["POST"])
 def user_profileupdate_controller():
     return users.user_profileupdate_model(request.json)
+
+
+@app.route('/predict', methods=['POST'])
+def detect_disease():
+    return users.detect_disease(request.files)

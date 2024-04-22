@@ -1,24 +1,29 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./DiseaseDetection.css"
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function DiseaseDetection() {
-  
+  const [selectedFile, setSelectedFile] = useState("")
+
   const fileInputRef = useRef(null);
-  
+
   const navigate = useNavigate()
   useEffect(() => {
     if (localStorage.getItem("token")) {
-        // getnotes()
-        navigate("/diseasedetection")
+      // getnotes()
+      navigate("/diseasedetection")
     }
     else {
-        navigate("/login")
+      navigate("/login")
     }
     // eslint-disable-next-line 
-}, [])
+  }, [])
 
   const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0])
+    console.log(event.target.files[0])
+    console.log(selectedFile)
     const chosenFile = event.target.files[0];
     const fileName = chosenFile.name;
 
@@ -26,7 +31,42 @@ function DiseaseDetection() {
     const fileChosenSpan = document.getElementById('file-chosen');
     fileChosenSpan.textContent = fileName;
   };
-  
+
+
+  const handleImageSummit = async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+    // formData.append('image', fileInputRef.current.files[0]);
+    console.log(formData);
+
+
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/predict", {
+        body: formData,
+      });
+      const json = response.data;
+
+
+      if (json.success) {
+        // props.showalert("Logged in successfully ", "success")
+        navigate("/diseasedetectionsubmit",{
+          state:{
+            image:URL.createObjectURL(selectedFile),
+            result: json.results,
+          }
+        })
+      }
+      else {
+        alert("Error: ",json.error)
+        // props.showalert("Invalid credentials", "danger")
+      }
+    } catch (error) {
+      console.log("Upload failed")
+    }
+
+  }
   return (
     <div className='dd'>
       <div className="conatainer">
@@ -42,10 +82,11 @@ function DiseaseDetection() {
             <div className="image">
               <img
                 src="https://tse3.mm.bing.net/th?id=OIP.xSuXJ4e7bgb0nZZ2JHZgsAHaK0&pid=Api&P=0&h=180"
-                height="250" alt="" width="200" class="d-block mx-auto mb-4 rounded-pill" />
+                height="250" alt="" width="200" className="d-block mx-auto mb-4 rounded-pill" />
             </div>
-            <form action="/diseasedetectionsubmit" enctype="multipart/form-data">
-              <div class="custom-file overflow-hidden">
+            {/* <form action="/diseasedetectionsubmit" onSubmit={handleImageSummit} enctype="multipart/form-data"> */}
+            <form  onSubmit={handleImageSummit} encType="multipart/form-data">
+              <div className="custom-file overflow-hidden">
                 <input
                   type="file"
                   id="actual-btn"
@@ -53,12 +94,12 @@ function DiseaseDetection() {
                   name="image"
                   ref={fileInputRef}
                   onChange={handleFileChange} />
-                <label className='ddlabel' for="actual-btn">Choose File</label>&nbsp;
+                <label className='ddlabel' htmlFor="actual-btn">Choose File</label>&nbsp;
                 <span id="file-chosen">No file chosen</span>
               </div>
 
               <center>
-                <a class="mx-2"><button type="submit" class="btn btn-outline-success mt-2">Submit</button></a>
+                <a className="mx-2"><button type="submit" className="btn btn-outline-success mt-2">Submit</button></a>
               </center>
             </form>
 
