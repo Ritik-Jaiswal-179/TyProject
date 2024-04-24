@@ -3,6 +3,11 @@ from flask import request
 from users.user_model import user_model
 users = user_model()
 
+from Plants.Test import predict_image
+
+
+
+
 @app.route('/users/adduser', methods=['POST'])
 def adduser():
     return users.addUser(request.form)
@@ -41,4 +46,4 @@ def user_profileupdate_controller():
 
 @app.route('/predict', methods=['POST'])
 def detect_disease():
-    return users.detect_disease(request.files)
+    return predict_image(request.files['file'])

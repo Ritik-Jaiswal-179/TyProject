@@ -10,6 +10,8 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from PIL import Image
 import warnings
+import gradio as gr
+import torch.nn.functional as F
 warnings.filterwarnings('ignore')
 
 
@@ -64,11 +66,11 @@ for image_file in selected_images:
     predicted_class = torch.argmax(output).item()
     
     # Display the image and its name along with the predicted class label
-    plt.figure(figsize=(6, 6))
-    plt.imshow(image)
-    plt.title(f"Image Name: {image_file}, Predicted class label: {labels[predicted_class]}")
-    plt.axis('off')
-    plt.show()
+    # plt.figure(figsize=(6, 6))
+    # plt.imshow(image)
+    # plt.title(f"Image Name: {image_file}, Predicted class label: {labels[predicted_class]}")
+    # plt.axis('off')
+    # plt.show()
 
 print("********************  Cell 6  *******************")
     # Load the image
@@ -87,10 +89,40 @@ with torch.no_grad():
 predicted_class = torch.argmax(output).item()
 
 # Display the image and its name along with the predicted class label
-plt.figure(figsize=(6, 6))
-plt.imshow(image)
-plt.title(f"Image Name: {image_name}, Predicted class label: {labels[predicted_class]}")
-plt.axis('off')
-plt.show()
+# plt.figure(figsize=(6, 6))
+# plt.imshow(image)
+# plt.title(f"Image Name: {image_name}, Predicted class label: {labels[predicted_class]}")
+# plt.axis('off')
+# plt.show()
 
 
+
+transform = transforms.Compose([
+    transforms.Resize((256, 256)),
+    transforms.ToTensor()
+])
+
+# Function to predict image class
+def predict_image(image):
+    # Convert Gradio image to PIL image
+    pil_image = Image.fromarray(image)
+    # Resize the image
+    pil_image = pil_image.resize((256, 256))
+    # Apply the transformation
+    image_tensor = transform(pil_image).unsqueeze(0)  # Add batch dimension
+    with torch.no_grad():
+        output = model(image_tensor)
+    probabilities = F.softmax(output, dim=1)[0]
+    predicted_class_index = torch.argmax(probabilities).item()
+    predicted_class = labels[predicted_class_index]
+    highest_probability = probabilities[predicted_class_index].item()
+    return predicted_class, highest_probability
+
+
+# Create Gradio interface
+iface = gr.Interface(predict_image, 
+                     inputs=gr.Image(label="Upload an image of a plant"),  # Use gr.Image for image upload
+                     outputs=[gr.Label(num_top_classes=1),
+                             gr.Number(label="Prbability")], 
+                     title="Plant Disease Classifier", 
+                     description="Upload an image of a plant to classify the disease.").launch(share=True)
